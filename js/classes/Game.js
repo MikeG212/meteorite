@@ -1,14 +1,13 @@
 import Canvas from '/js/utility/Canvas.js';
 import MovingObject from '/js/classes/MovingObject.js';
 
-const { requestAnimationFrame } = window;
+const MAX_ASTEROIDS = 10;
 
-const movingObject = new MovingObject({ position: {x: 250, y: 250}, velocity: {x: 1, y: 1} });
-const randomObject = MovingObject.createRandom();
+const { requestAnimationFrame } = window;
 
 export default class Game {
     constructor() {
-        this.asteroids = [movingObject, randomObject];
+        this.asteroids = [];
     }
 
     move = () => {
@@ -23,10 +22,22 @@ export default class Game {
         })
     }
 
+    removeOutOfBounds = () => {
+        this.asteroids = this.asteroids.filter(asteroid => asteroid.inBounds());
+    }
+
+    repopulateAsteroids = () =>  {
+        this.asteroids.push(MovingObject.createRandom());
+    }
+
     tick = () => {
         Canvas.clear();
         this.move();
         this.draw();
+        this.removeOutOfBounds();
+        if (this.asteroids.length < MAX_ASTEROIDS) {
+            this.repopulateAsteroids();
+        }
         requestAnimationFrame(this.tick);
     }
 }

@@ -2,11 +2,16 @@
   "name": "meteorite",
   "version": "1.0.0",
   "main": "index.js",
-  "dependencies": {},
+  "dependencies": {
+    "babel-eslint": "^10.0.3",
+    "eslint": "^6.7.2",
+    "eslint-plugin-babel": "^5.3.0"
+  },
   "devDependencies": {},
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "python -m SimpleHTTPServer 2222"
+    "start": "python -m SimpleHTTPServer 2222",
+    "lint": "eslint js/"
   },
   "repository": {
     "type": "git",
