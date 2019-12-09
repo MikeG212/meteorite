@@ -1,0 +1,12 @@
+{
+  "name": "meteorite",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "python -m SimpleHTTPServer 2222"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC"
+}
