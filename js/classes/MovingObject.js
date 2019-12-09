@@ -1,15 +1,26 @@
 import Canvas from "../utility/Canvas.js";
 
 export default class MovingObject {
-    constructor() {
+    constructor({ position, velocity }) {
         this.position = {
-            x: 100,
-            y: 250,
+            x: position.x,
+            y: position.y,
         }
         this.velocity = {
-            x: 1,
-            y: 1
+            x: velocity.x,
+            y: velocity.y,
         }
+    }
+
+    static createRandom() {
+        let randomPosition = {};
+        let randomVelocity = {};
+        randomPosition.x = Math.floor(Math.random() * 500);
+        randomPosition.y = Math.floor(Math.random() * 500);
+        randomVelocity.x = Math.floor(Math.random() * 6) - 3;
+        randomVelocity.y = Math.floor(Math.random() * 6) - 3;
+        const randomObject = new MovingObject({ position: randomPosition, velocity: randomVelocity });
+        return randomObject;
     }
 
     move() {
