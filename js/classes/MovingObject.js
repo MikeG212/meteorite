@@ -23,8 +23,8 @@ export default class MovingObject {
         let randomVelocity = {};
         randomPosition.x = Math.random() * 500;
         randomPosition.y = Math.random() * 500;
-        randomVelocity.x = getNonZeroRandomNumber(2);
-        randomVelocity.y = getNonZeroRandomNumber(2);
+        randomVelocity.x = getNonZeroRandomNumber(4);
+        randomVelocity.y = getNonZeroRandomNumber(4);
         const randomObject = new MovingObject({ position: randomPosition, velocity: randomVelocity });
         return randomObject;
     }
