@@ -27,7 +27,7 @@ export default class Game {
     }
 
     repopulateAsteroids = () =>  {
-        this.asteroids.push(MovingObject.createRandom());
+        this.asteroids.push(MovingObject.createRandomOnEdge());
     }
 
     tick = () => {

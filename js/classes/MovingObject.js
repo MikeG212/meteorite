@@ -1,5 +1,7 @@
 import Canvas from '../utility/Canvas.js';
 
+const canvasStage = document.getElementById('canvas-stage');
+
 const getNonZeroRandomNumber = (num) => {
     let random = Math.random() * num - (num / 2);
     if (random === 0) return this.getNonZeroRandomNumber(num);
@@ -18,14 +20,38 @@ export default class MovingObject {
         }
     }
 
-    static createRandom = () => {
-        let randomPosition = {};
-        let randomVelocity = {};
-        randomPosition.x = Math.random() * 500;
-        randomPosition.y = Math.random() * 500;
-        randomVelocity.x = getNonZeroRandomNumber(4);
-        randomVelocity.y = getNonZeroRandomNumber(4);
-        const randomObject = new MovingObject({ position: randomPosition, velocity: randomVelocity });
+
+    static createRandomOnEdge = () => {
+        let position = {};
+        let velocity = {};
+        position.x = Math.random() * 500;
+        position.y = Math.random() * 500;
+        velocity.x = getNonZeroRandomNumber(6);
+        velocity.y = getNonZeroRandomNumber(6);
+
+        let edgeSelector = Math.floor(Math.random() * 4);
+        switch(edgeSelector) {
+            case 0: //left edge
+                position.x = 0;
+                velocity.x = Math.abs(velocity.x);
+                break;
+            case 1: //right edge
+                position.x = canvasStage.width;
+                velocity.x = -Math.abs(velocity.x);
+                break;
+            case 2: //top edge
+                position.y = 0;
+                velocity.y = Math.abs(velocity.y);
+                break;
+            case 3: //bottom edge
+                position.y = canvasStage.height;
+                velocity.y = -Math.abs(velocity.y);
+                break;
+            default:
+                break;
+        }
+
+        const randomObject = new MovingObject({ position, velocity });
         return randomObject;
     }
 
