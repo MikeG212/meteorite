@@ -1,4 +1,6 @@
-import Game from '/js/classes/Game.js';
+import Game from './classes/Game.js';
+
+console.log('Ay oh lez go');
 
 const game = new Game();
 game.tick();
