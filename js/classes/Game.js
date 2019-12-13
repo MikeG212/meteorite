@@ -27,7 +27,7 @@ export default class Game {
     }
 
     removeOutOfBounds = () => {
-        this.asteroids = this.asteroids.filter(asteroid => asteroid.inBounds());
+        this.asteroids = this.asteroids.filter(asteroid => !asteroid.outOfBounds());
     }
 
     repopulateAsteroids = () =>  {

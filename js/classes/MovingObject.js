@@ -55,13 +55,52 @@ export default class MovingObject {
         return randomObject;
     }
 
-    inBounds = () => {
-        return this.position.x - 10 < 500 &&
-            this.position.x + 10 > 0 &&
-            this.position.y - 10 < 500 &&
-            this.position.y + 10 > 0;
+    // inBounds = () => {
+    //     return this.position.x - 10 < 500 &&
+    //         this.position.x + 10 > 0 &&
+    //         this.position.y - 10 < 500 &&
+    //         this.position.y + 10 > 0;
+    // }
+
+    outOfBounds = () => {
+        this.outOfBoundsDirection();
     }
 
+    wrap = () => {
+        switch(this.outOfBoundsDirection()) {
+            case '+x':
+                this.position.x = 0;
+                break;
+            case '-x':
+                this.position.x = canvasStage.width;
+                break;
+            case '+y':
+                this.position.y = 0;
+                break;
+            case '-y':
+                this.position.y = canvasStage.height;
+                break;
+            default:
+                break;
+        }
+    }
+
+    outOfBoundsDirection = () => {
+        if (this.position.x > canvasStage.width) {
+            return '+x';
+        }
+        if (this.position.x < 0) {
+            return '-x';
+        }
+        if (this.position.y > canvasStage.height) {
+            return '+y';
+        }
+        if (this.position.y < 0) {
+            return '-y';
+        }
+        return false;
+    }
+ 
     move = () => {
         this.position.x += this.velocity.x;
         this.position.y += this.velocity.y;

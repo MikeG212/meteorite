@@ -21,10 +21,12 @@ export default class Ship extends MovingObject {
     move = () => {
         if (key.isPressed('left')) { 
             this.direction -= 0.1
+            this.direction %= 2 * Math.PI;
             console.log(this.direction);
         }
         if (key.isPressed('right')) {
             this.direction += 0.1
+            this.direction %= 2 * Math.PI;
             console.log(this.direction);
         }
         if (key.isPressed('up')) {
@@ -36,11 +38,12 @@ export default class Ship extends MovingObject {
 
         this.position.x += this.velocity.x + this.getAcceleration().x;
         this.position.y += this.velocity.y + this.getAcceleration().y;
+        this.wrap();
     }
 
     getAcceleration = () => {
         if (key.isPressed('up')) {
-        
+            return { x: 0, y: -1 }
         }
 
         return { x: 0, y: 0};
