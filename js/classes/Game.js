@@ -37,6 +37,7 @@ export default class Game {
     tick = () => {
         Canvas.clear();
         this.ship.draw();
+        this.ship.move();
         this.move();
         this.draw();
         this.removeOutOfBounds();
