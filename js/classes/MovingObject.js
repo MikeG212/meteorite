@@ -55,13 +55,6 @@ export default class MovingObject {
         return randomObject;
     }
 
-    // inBounds = () => {
-    //     return this.position.x - 10 < 500 &&
-    //         this.position.x + 10 > 0 &&
-    //         this.position.y - 10 < 500 &&
-    //         this.position.y + 10 > 0;
-    // }
-
     outOfBounds = () => {
         this.outOfBoundsDirection();
     }
