@@ -1,5 +1,6 @@
 import key from 'keymaster';
 
+import Bullet from './Bullet.js';
 import MovingObject from './MovingObject.js';
 import Canvas from '../utility/Canvas.js';
 import Vec2 from './Vec2.js';
@@ -16,8 +17,8 @@ export default class Ship extends MovingObject {
     }
 
     draw = () => {
-        Canvas.drawCircle({ x: this.position.x, y: this.position.y, radius: 30, color: this.color, lineWidth: 2 });
-        Canvas.drawCircle({ x: this.position.x + Math.cos(this.direction) * 30, y: this.position.y + Math.sin(this.direction) * 30, radius: 5, color: this.color, lineWidth: 2 });
+        Canvas.drawCircle({ x: this.position.x, y: this.position.y, radius: 20, color: this.color, lineWidth: 2 });
+        Canvas.drawCircle({ x: this.position.x + Math.cos(this.direction) * 20, y: this.position.y + Math.sin(this.direction) * 20, radius: 5, color: this.color, lineWidth: 2 });
     }
 
     move = () => {
@@ -42,7 +43,7 @@ export default class Ship extends MovingObject {
     }
 
     shoot = () => {
-        return new MovingObject({ position: {x: this.position.x + Math.cos(this.direction) * 30,
+        return new Bullet({ position: {x: this.position.x + Math.cos(this.direction) * 30,
             y: this.position.y + Math.sin(this.direction) * 30},
             velocity: {
                 x: Math.cos(this.direction) * 10,

@@ -92,6 +92,6 @@ export default class MovingObject {
     }
 
     draw = () => {
-        Canvas.drawCircle({ x: this.position.x, y: this.position.y, radius: 10, color: 'white', lineWidth: 2 });
+        Canvas.drawCircle({ x: this.position.x, y: this.position.y, radius: 50, color: 'white', lineWidth: 2 });
     }
 }
