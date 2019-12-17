@@ -1,3 +1,5 @@
+import key from 'keymaster';
+
 import Canvas from '../utility/Canvas.js';
 import MovingObject from './MovingObject.js';
 import Ship from './Ship.js';
@@ -10,6 +12,8 @@ export default class Game {
     constructor() {
         this.asteroids = [];
         this.ship = new Ship();
+        this.bullets = [];
+        this.bindHandlers();
     }
 
     move = () => {
@@ -17,6 +21,9 @@ export default class Game {
             asteroid.move();
         })
         this.ship.move();
+        this.bullets.forEach(bullet => {
+            bullet.move();
+        })
     }
 
     draw = () => {
@@ -24,11 +31,21 @@ export default class Game {
             asteroid.draw();
         })
         this.ship.draw();
+        this.bullets.forEach(bullet => {
+            bullet.draw();
+        })
+    }
+
+    bindHandlers = () => { //event handler mode for keymater
+        key('space', (e, handler) => {
+            let bullet = this.ship.shoot();
+            this.bullets.push(bullet);
+        });
     }
 
     removeOutOfBounds = () => {
         this.asteroids = this.asteroids.filter(asteroid => !asteroid.outOfBounds());
-        console.log(this.asteroids);
+        this.bullets = this.bullets.filter(bullet => !bullet.outOfBounds());
     }
 
     repopulateAsteroids = () =>  {
