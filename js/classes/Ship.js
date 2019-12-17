@@ -15,20 +15,18 @@ export default class Ship extends MovingObject {
 
     draw = () => {
         Canvas.drawCircle({ x: this.position.x, y: this.position.y, radius: 30, color: this.color, lineWidth: 2 });
-        Canvas.drawCircle({ x: this.position.x, y: this.position.y - 35, radius: 5, color: this.color, lineWidth: 2 });
+        Canvas.drawCircle({ x: this.position.x + Math.cos(this.direction) * 30, y: this.position.y + Math.sin(this.direction) * 30, radius: 5, color: this.color, lineWidth: 2 });
     }
 
     move = () => {
         if (key.isPressed('left')) { 
-            this.direction -= 0.1
-            this.direction %= 2 * Math.PI;
-            console.log(this.direction);
+            this.direction -= Math.PI /48
         }
         if (key.isPressed('right')) {
-            this.direction += 0.1
-            this.direction %= 2 * Math.PI;
-            console.log(this.direction);
+            this.direction += Math.PI /48
         }
+        this.direction %= 2 * Math.PI;
+
         if (key.isPressed('up')) {
             this.position.y -= .5;
         }
@@ -36,14 +34,23 @@ export default class Ship extends MovingObject {
         //     this.position.x -= .5;
         // }
 
-        this.position.x += this.velocity.x + this.getAcceleration().x;
-        this.position.y += this.velocity.y + this.getAcceleration().y;
+        let acc = this.getAcceleration();
+
+        // this.velocity.x += this.getAcceleration().x;
+        // this.velocity.y += this.getAcceleration().y;
+
+        this.position.x += this.velocity.x + acc.x;
+        this.position.y += this.velocity.y + acc.y;
         this.wrap();
     }
 
+
+    //return an accleration that is in the direction of my ship
+    //x is cos of angle of ship
+    //y is sin of angle of ship
     getAcceleration = () => {
         if (key.isPressed('up')) {
-            return { x: 0, y: -1 }
+            return { x: Math.cos(this.direction), y: Math.sin(this.direction) }
         }
 
         return { x: 0, y: 0};

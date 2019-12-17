@@ -51,12 +51,11 @@ export default class MovingObject {
                 break;
         }
 
-        const randomObject = new MovingObject({ position, velocity });
-        return randomObject;
+        return new MovingObject({ position, velocity });
     }
 
     outOfBounds = () => {
-        this.outOfBoundsDirection();
+        return this.outOfBoundsDirection();
     }
 
     wrap = () => {

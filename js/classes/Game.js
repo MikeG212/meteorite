@@ -2,7 +2,7 @@ import Canvas from '../utility/Canvas.js';
 import MovingObject from './MovingObject.js';
 import Ship from './Ship.js';
 
-const MAX_ASTEROIDS = 10;
+const MIN_ASTEROIDS = 10;
 
 const { requestAnimationFrame } = window;
 
@@ -28,10 +28,14 @@ export default class Game {
 
     removeOutOfBounds = () => {
         this.asteroids = this.asteroids.filter(asteroid => !asteroid.outOfBounds());
+        console.log(this.asteroids);
     }
 
     repopulateAsteroids = () =>  {
-        this.asteroids.push(MovingObject.createRandomOnEdge());
+        while (this.asteroids.length < MIN_ASTEROIDS) {
+            var newAsteroid = MovingObject.createRandomOnEdge();
+            this.asteroids.push(newAsteroid);
+        }
     }
 
     tick = () => {
@@ -41,9 +45,7 @@ export default class Game {
         this.move();
         this.draw();
         this.removeOutOfBounds();
-        if (this.asteroids.length < MAX_ASTEROIDS) {
-            this.repopulateAsteroids();
-        }
+        this.repopulateAsteroids();
         requestAnimationFrame(this.tick);
     }
 }
