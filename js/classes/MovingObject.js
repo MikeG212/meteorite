@@ -1,4 +1,5 @@
 import Canvas from '../utility/Canvas.js';
+import Vec2 from './Vec2.js';
 
 const canvasStage = document.getElementById('canvas-stage');
 
@@ -10,16 +11,9 @@ const getNonZeroRandomNumber = (num) => {
 
 export default class MovingObject {
     constructor({ position, velocity }) {
-        this.position = {
-            x: position.x,
-            y: position.y,
-        }
-        this.velocity = {
-            x: velocity.x,
-            y: velocity.y,
-        }
+        this.position = new Vec2({ x: position.x, y: position.y });
+        this.velocity = new Vec2({ x: velocity.x, y: velocity.y });
     }
-
 
     static createRandomOnEdge = () => {
         let position = {};
@@ -94,8 +88,7 @@ export default class MovingObject {
     }
  
     move = () => {
-        this.position.x += this.velocity.x;
-        this.position.y += this.velocity.y;
+        this.position = this.position.add(this.velocity)
     }
 
     draw = () => {

@@ -2,6 +2,8 @@ import key from 'keymaster';
 
 import MovingObject from './MovingObject.js';
 import Canvas from '../utility/Canvas.js';
+import Vec2 from './Vec2.js';
+
 
 const canvasStage = document.getElementById('canvas-stage');
 const INITIAL_DIRECTION = 0;
@@ -28,31 +30,33 @@ export default class Ship extends MovingObject {
         this.direction %= 2 * Math.PI;
 
         if (key.isPressed('up')) {
-            this.position.y -= .5;
+            this.velocity = this.velocity.add(this.getAcceleration());
+            this.position = this.position.add(this.velocity);
         }
-        // if (key.isPressed('down')) {
-        //     this.position.x -= .5;
-        // }
 
-        let acc = this.getAcceleration();
+        else {
+            this.velocity = new Vec2({ x: 0, y: 0});
+        }
 
-        // this.velocity.x += this.getAcceleration().x;
-        // this.velocity.y += this.getAcceleration().y;
-
-        this.position.x += this.velocity.x + acc.x;
-        this.position.y += this.velocity.y + acc.y;
         this.wrap();
     }
 
+    shoot = () => {
+        return new MovingObject({ position: {x: this.position.x + Math.cos(this.direction) * 30,
+            y: this.position.y + Math.sin(this.direction) * 30},
+            velocity: {
+                x: Math.cos(this.direction) * 10,
+                y: Math.sin(this.direction) * 10,
+            }
+        })
+        
+    }
 
-    //return an accleration that is in the direction of my ship
-    //x is cos of angle of ship
-    //y is sin of angle of ship
     getAcceleration = () => {
         if (key.isPressed('up')) {
-            return { x: Math.cos(this.direction), y: Math.sin(this.direction) }
+            return new Vec2({ x: Math.cos(this.direction) * .1, y: Math.sin(this.direction) * .1});
+        } else {
+            return new Vec2({ x: 0, y: 0 })
         }
-
-        return { x: 0, y: 0};
     }
 }
